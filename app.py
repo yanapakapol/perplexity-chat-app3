@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Modern minimal CSS inspired by Apple and Grok
+# Fixed CSS with proper contrast - readable text on all backgrounds
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
@@ -58,10 +58,10 @@ st.markdown("""
         z-index: 0;
     }
 
-    /* Input fields - Clean and minimal */
+    /* FIXED: Input fields - Dark background with WHITE text for visibility */
     input[type="text"], input[type="password"], textarea {
-        background: rgba(255, 255, 255, 0.03) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        background: rgba(20, 20, 30, 0.95) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
         border-radius: 12px !important;
         color: #ffffff !important;
         padding: 14px 18px !important;
@@ -71,27 +71,42 @@ st.markdown("""
     }
 
     input:focus, textarea:focus {
-        border-color: rgba(0, 32, 96, 0.5) !important;
-        background: rgba(255, 255, 255, 0.05) !important;
+        border-color: #002060 !important;
+        background: rgba(30, 30, 40, 0.98) !important;
         outline: none !important;
-        box-shadow: 0 0 0 4px rgba(0, 32, 96, 0.1) !important;
+        box-shadow: 0 0 0 4px rgba(0, 32, 96, 0.2) !important;
     }
 
+    /* FIXED: Placeholder text - Light gray for visibility */
     input::placeholder, textarea::placeholder {
-        color: rgba(255, 255, 255, 0.3) !important;
+        color: rgba(200, 200, 200, 0.5) !important;
+    }
+
+    /* FIXED: Ensure typed text is WHITE */
+    input, textarea, [contenteditable="true"] {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+    }
+
+    /* FIXED: Chat input specifically */
+    [data-testid="stChatInput"] input,
+    [data-testid="stChatInput"] textarea {
+        background: rgba(20, 20, 30, 0.95) !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
     }
 
     label {
-        color: rgba(255, 255, 255, 0.7) !important;
+        color: rgba(255, 255, 255, 0.9) !important;
         font-weight: 500 !important;
         font-size: 14px !important;
         letter-spacing: -0.01em !important;
     }
 
-    /* Buttons - Apple-inspired */
+    /* Buttons - Navy with white text */
     .stButton > button, [data-testid="stFormSubmitButton"] button {
         background: #002060 !important;
-        color: white !important;
+        color: #ffffff !important;
         border: none !important;
         border-radius: 12px !important;
         padding: 12px 24px !important;
@@ -115,10 +130,10 @@ st.markdown("""
         border: none !important;
     }
 
-    /* Chat messages - Minimal cards */
+    /* Chat messages - Dark background with WHITE text */
     .stChatMessage {
-        background: rgba(255, 255, 255, 0.02) !important;
-        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        background: rgba(15, 15, 25, 0.8) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
         border-radius: 16px !important;
         padding: 20px !important;
         margin-bottom: 12px !important;
@@ -126,57 +141,77 @@ st.markdown("""
     }
 
     .stChatMessage:hover {
-        background: rgba(255, 255, 255, 0.03) !important;
-        border-color: rgba(255, 255, 255, 0.1) !important;
+        background: rgba(20, 20, 30, 0.9) !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
     }
 
-    [data-testid="stChatMessageContent"], [data-testid="stChatMessageContent"] p {
-        color: rgba(255, 255, 255, 0.9) !important;
+    /* FIXED: All chat message text is WHITE */
+    [data-testid="stChatMessageContent"], 
+    [data-testid="stChatMessageContent"] p,
+    [data-testid="stChatMessageContent"] span,
+    [data-testid="stChatMessageContent"] div {
+        color: #ffffff !important;
         font-size: 15px !important;
         line-height: 1.6 !important;
         font-weight: 400 !important;
         letter-spacing: -0.01em !important;
     }
 
-    /* Chat input container */
+    /* FIXED: Chat input container - dark background */
     .stChatInputContainer {
-        background: rgba(255, 255, 255, 0.03) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        background: rgba(15, 15, 25, 0.95) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
         border-radius: 16px !important;
         padding: 4px !important;
     }
 
     .stChatInputContainer:focus-within {
-        border-color: rgba(0, 32, 96, 0.5) !important;
-        box-shadow: 0 0 0 4px rgba(0, 32, 96, 0.1) !important;
+        border-color: #002060 !important;
+        box-shadow: 0 0 0 4px rgba(0, 32, 96, 0.2) !important;
     }
 
-    /* Expander - Clean */
+    /* Expander - Dark with white text */
     .streamlit-expanderHeader {
-        background: rgba(255, 255, 255, 0.02) !important;
-        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        background: rgba(15, 15, 25, 0.8) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
         border-radius: 12px !important;
-        color: rgba(255, 255, 255, 0.9) !important;
+        color: #ffffff !important;
         font-weight: 500 !important;
         padding: 14px 18px !important;
         letter-spacing: -0.01em !important;
     }
 
     .streamlit-expanderContent {
-        background: rgba(255, 255, 255, 0.01) !important;
-        border: 1px solid rgba(255, 255, 255, 0.04) !important;
+        background: rgba(10, 10, 20, 0.9) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
         border-radius: 0 0 12px 12px !important;
         padding: 18px !important;
+        color: #ffffff !important;
     }
 
+    /* FIXED: Selectbox - dark background with white text */
     .stSelectbox > div > div {
-        background: rgba(255, 255, 255, 0.03) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        background: rgba(20, 20, 30, 0.95) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
         border-radius: 12px !important;
         color: #ffffff !important;
     }
 
-    /* Header - Minimalist */
+    /* FIXED: Selectbox options dropdown */
+    [data-baseweb="popover"] {
+        background: rgba(20, 20, 30, 0.98) !important;
+    }
+
+    [role="option"] {
+        background: rgba(20, 20, 30, 0.95) !important;
+        color: #ffffff !important;
+    }
+
+    [role="option"]:hover {
+        background: rgba(0, 32, 96, 0.3) !important;
+    }
+
+    /* Header - White text on black background */
     .header-title {
         font-size: 48px;
         font-weight: 600;
@@ -188,17 +223,17 @@ st.markdown("""
 
     .header-subtitle {
         text-align: center;
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.6);
         font-size: 17px;
         margin-bottom: 48px;
         font-weight: 400;
         letter-spacing: -0.01em;
     }
 
-    /* Model card - Clean design */
+    /* Model card - Dark with white text */
     .model-card {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(15, 15, 25, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 12px;
         padding: 16px;
         margin: 12px 0;
@@ -206,8 +241,8 @@ st.markdown("""
     }
 
     .model-card.selected {
-        background: rgba(0, 32, 96, 0.15);
-        border-color: rgba(0, 32, 96, 0.4);
+        background: rgba(0, 32, 96, 0.25);
+        border-color: rgba(0, 32, 96, 0.5);
     }
 
     /* Tier badges */
@@ -222,27 +257,27 @@ st.markdown("""
     }
 
     .tier-free {
-        background: rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(100, 100, 120, 0.3);
+        color: rgba(200, 200, 220, 0.9);
+        border: 1px solid rgba(150, 150, 170, 0.3);
     }
 
     .tier-pro {
-        background: rgba(0, 32, 96, 0.2);
-        color: rgba(100, 149, 237, 0.9);
-        border: 1px solid rgba(0, 32, 96, 0.3);
-    }
-
-    .tier-max {
         background: rgba(0, 32, 96, 0.3);
-        color: rgba(135, 206, 250, 0.9);
+        color: rgba(100, 149, 237, 0.95);
         border: 1px solid rgba(0, 32, 96, 0.5);
     }
 
-    /* Citation card */
+    .tier-max {
+        background: rgba(0, 50, 120, 0.3);
+        color: rgba(135, 206, 250, 0.95);
+        border: 1px solid rgba(0, 50, 120, 0.5);
+    }
+
+    /* Citation card - dark background */
     .citation-card {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(15, 15, 25, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 10px;
         padding: 12px 14px;
         margin: 8px 0;
@@ -251,7 +286,7 @@ st.markdown("""
     .citation-number {
         display: inline-block;
         background: #002060;
-        color: white;
+        color: #ffffff;
         border-radius: 6px;
         padding: 4px 10px;
         font-weight: 600;
@@ -261,8 +296,8 @@ st.markdown("""
 
     /* Feature card */
     .feature-card {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(15, 15, 25, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 16px;
         padding: 32px;
         transition: all 0.3s ease;
@@ -270,18 +305,18 @@ st.markdown("""
     }
 
     .feature-card:hover {
-        background: rgba(255, 255, 255, 0.04);
+        background: rgba(20, 20, 30, 0.9);
         transform: translateY(-4px);
-        border-color: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.2);
     }
 
     /* Footer badge */
     .footer-badge {
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(20, 20, 30, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.15);
         border-radius: 8px;
         padding: 6px 14px;
-        color: rgba(255, 255, 255, 0.7);
+        color: rgba(255, 255, 255, 0.9);
         font-size: 13px;
         font-weight: 500;
     }
@@ -292,27 +327,43 @@ st.markdown("""
     }
 
     ::-webkit-scrollbar-thumb {
-        background: rgba(0, 32, 96, 0.5);
+        background: rgba(0, 32, 96, 0.6);
         border-radius: 4px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: rgba(0, 32, 96, 0.7);
+        background: rgba(0, 32, 96, 0.8);
     }
 
     /* Alert styling */
     .stAlert {
         border-radius: 12px !important;
-        background: rgba(255, 255, 255, 0.03) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        background: rgba(20, 20, 30, 0.9) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        color: #ffffff !important;
     }
 
     /* Divider */
     hr {
         border: none !important;
         height: 1px !important;
-        background: rgba(255, 255, 255, 0.06) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
         margin: 32px 0 !important;
+    }
+
+    /* FIXED: All text elements should be white on dark backgrounds */
+    p, span, div, h1, h2, h3, h4, h5, h6, li, a {
+        color: inherit !important;
+    }
+
+    /* Links should be visible */
+    a {
+        color: rgba(100, 149, 237, 0.9) !important;
+        text-decoration: none !important;
+    }
+
+    a:hover {
+        color: rgba(135, 206, 250, 0.95) !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -393,7 +444,7 @@ with st.expander("⚙️ Model Settings", expanded=False):
                 <span class="tier-badge {tier_class}">{model_info['tier']}</span>
             </div>
         </div>
-        <p style="color: rgba(255, 255, 255, 0.6); font-size: 14px; margin: 0;">
+        <p style="color: rgba(255, 255, 255, 0.7); font-size: 14px; margin: 0;">
             {model_info['description']}
         </p>
     </div>
@@ -408,7 +459,7 @@ if len(st.session_state.chat_history) == 0:
         <h2 style="font-size: 32px; font-weight: 600; color: #ffffff; letter-spacing: -0.02em; margin-bottom: 12px;">
             Think. Reason. Understand.
         </h2>
-        <p style="color: rgba(255, 255, 255, 0.5); font-size: 16px;">Evidence-based analysis with full transparency</p>
+        <p style="color: rgba(255, 255, 255, 0.6); font-size: 16px;">Evidence-based analysis with full transparency</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -418,7 +469,7 @@ if len(st.session_state.chat_history) == 0:
         <div class="feature-card">
             <span style="font-size: 40px; display: block; margin-bottom: 16px;">🧠</span>
             <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 8px; font-weight: 600;">Inductive Reasoning</h3>
-            <p style="color: rgba(255, 255, 255, 0.5); font-size: 14px; margin: 0; line-height: 1.5;">
+            <p style="color: rgba(255, 255, 255, 0.7); font-size: 14px; margin: 0; line-height: 1.5;">
                 Pattern recognition from empirical data with multi-branch exploration
             </p>
         </div>
@@ -428,7 +479,7 @@ if len(st.session_state.chat_history) == 0:
         <div class="feature-card">
             <span style="font-size: 40px; display: block; margin-bottom: 16px;">🔍</span>
             <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 8px; font-weight: 600;">Transparent Process</h3>
-            <p style="color: rgba(255, 255, 255, 0.5); font-size: 14px; margin: 0; line-height: 1.5;">
+            <p style="color: rgba(255, 255, 255, 0.7); font-size: 14px; margin: 0; line-height: 1.5;">
                 Full chain-of-thought reasoning with confidence intervals
             </p>
         </div>
@@ -437,10 +488,10 @@ if len(st.session_state.chat_history) == 0:
 # Chat history
 for chat in st.session_state.chat_history:
     with st.chat_message("user", avatar="👤"):
-        st.markdown(f"<div style='color: rgba(255, 255, 255, 0.9);'>{chat['question']}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='color: #ffffff;'>{chat['question']}</div>", unsafe_allow_html=True)
 
     with st.chat_message("assistant", avatar="🧠"):
-        st.markdown(f"<div style='color: rgba(255, 255, 255, 0.9); line-height: 1.6;'>{chat['answer']}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='color: #ffffff; line-height: 1.6;'>{chat['answer']}</div>", unsafe_allow_html=True)
 
         if chat["citations"]:
             with st.expander(f"📚 {len(chat['citations'])} Sources"):
@@ -449,7 +500,7 @@ for chat in st.session_state.chat_history:
                     <div class="citation-card">
                         <span class="citation-number">{citation['number']}</span>
                         <strong style="color: #ffffff;">{citation['domain']}</strong><br>
-                        <a href="{citation['url']}" target="_blank" style="color: rgba(100, 149, 237, 0.8); text-decoration: none; font-size: 13px;">{citation['url'][:60]}...</a>
+                        <a href="{citation['url']}" target="_blank" style="color: rgba(100, 149, 237, 0.9); text-decoration: none; font-size: 13px;">{citation['url'][:60]}...</a>
                     </div>
                     """, unsafe_allow_html=True)
 
@@ -458,12 +509,12 @@ user_input = st.chat_input("Ask anything...")
 
 if user_input:
     with st.chat_message("user", avatar="👤"):
-        st.markdown(f"<div style='color: rgba(255, 255, 255, 0.9);'>{user_input}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='color: #ffffff;'>{user_input}</div>", unsafe_allow_html=True)
 
     with st.chat_message("assistant", avatar="🧠"):
         with st.spinner("Processing..."):
             response = st.session_state.chat.ask(user_input, model=st.session_state.selected_model)
-            st.markdown(f"<div style='color: rgba(255, 255, 255, 0.9); line-height: 1.6;'>{response['answer']}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='color: #ffffff; line-height: 1.6;'>{response['answer']}</div>", unsafe_allow_html=True)
 
             if response["citations"]:
                 with st.expander(f"📚 {len(response['citations'])} Sources"):
@@ -472,7 +523,7 @@ if user_input:
                         <div class="citation-card">
                             <span class="citation-number">{citation['number']}</span>
                             <strong style="color: #ffffff;">{citation['domain']}</strong><br>
-                            <a href="{citation['url']}" target="_blank" style="color: rgba(100, 149, 237, 0.8); text-decoration: none; font-size: 13px;">{citation['url'][:60]}...</a>
+                            <a href="{citation['url']}" target="_blank" style="color: rgba(100, 149, 237, 0.9); text-decoration: none; font-size: 13px;">{citation['url'][:60]}...</a>
                         </div>
                         """, unsafe_allow_html=True)
 
